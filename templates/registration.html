@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./../static/css/registration.css">
+
+    <script type="text/javascript">
+    function mySubmitFunction(e) {
+      e.preventDefault();
+      someBug();
+      return false;
+    }
+    </script>
+
+    <title>Registration Form</title>
+  </head>
+  <body>
+    <h1 style="text-align: center;">Registration Form</h1>
+    <form id="regForm" name="regForm" autocomplete="on" onsubmit="return mySubmitFunction(event)">
+      <fieldset>
+        <legend>Basic information</legend>
+        <label for="fname">Enter your first name<span class="required">*</span>: </label>
+        <input type="text" name="fname" value="" />
+        <br />
+        <label for="lname">Enter your last name<span class="required">*</span>: </label>
+        <input type="text" name="lname" value="" />
+        <br />
+        <label for="gender">Gender<span class="required">*</span>: </label>
+        <input type="radio" id="male" name="gender" value="male" />
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female" />
+        <label for="female">Female</label>
+        <br />
+        <label for="dob">Date of Birth<span class="required">*</span>: </label>
+        <input type="date" name="dob" value="" />
+        <span id="ageErr" class="error" hidden>you must be at least 15 years old</span>
+        <br />
+        <label for="religion">Enter your Religion<span class="required">*</span>: </label>
+        <select name="religion">
+          <option value="">-</option>
+          <option value="islam">Islam</option>
+          <option value="chritian">Christianity</option>
+          <option value="buddha">Buddhism</option>
+          <option value="hisdu">Hinduism</option>
+        </select>
+      </fieldset>
+      <br />
+      <fieldset>
+        <legend>Contact Information</legend>
+        <label for="present">Present Address: </label>
+        <textarea name="present" rows="2" cols="30" placeholder=""></textarea>
+        <br />
+        <label for="permanent">Permanent Address: </label>
+        <textarea name="permanent" rows="2" cols="30" value=""></textarea>
+        <br />
+        <label for="tel">Telephone: </label>
+        <input type="tel" name="tel" value="" />
+        <br />
+        <label for="email">Email<span class="required">*</span>: </label>
+        <input type="email" name="email" value="" />
+        <span id="emailErr" class="error" hidden></span>
+        <br />
+        <label for="weblink">Personal Website Link: </label>
+        <input type="url" name="weblink" value="" />
+      </fieldset>
+      <br />
+      <fieldset>
+        <legend>Account Information</legend>
+        <label for="username">Username<span class="required">*</span>: </label>
+        <input type="text" name="username" value="" />
+        <br>
+        <label for="password">Password<span class="required">*</span>: </label>
+        <input type="password" name="password" value="" />
+        <br>
+        <label for="verify-Password">Re-enter Password<span class="required">*</span>: </label>
+        <input type="password" name="verify_password" value="">
+        <span id="passErr" class="error" hidden>Password doesn't match</span>
+      </fieldset>
+      <br />
+      <button type="submit">Submit</button>
+    </form>
+
+    <p id="regErr" class="error" hidden>* marked fields are required</p>
+
+    <script type="text/javascript" src="./../static/js/registration.js"></script>
+  </body>
+</html>
