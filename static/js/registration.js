@@ -1,10 +1,10 @@
 var fname = lname = gender = dob = religion = present = permanent = tel = email = weblink = username = password = verify_password = "";
 var flag = false;
 
-// function validateEmail(email) {
-//   let res = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-//   return res.test(email);
-// }
+function validateEmail(email) {
+  let res = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return res.test(email);
+}
 
 document.querySelector('#regForm').onsubmit = () => {
   fname = document.forms["regForm"]["fname"].value;
@@ -24,10 +24,10 @@ document.querySelector('#regForm').onsubmit = () => {
   if (fname == "" || lname == "" || gender == "" || dob == "" || religion == "" || email == "" || username == "" || password == "" || verify_password == "") {
     flag = true;
   }
-  // else if (!validateEmail(email)) {
-  //   document.querySelector("#emailErr").removeAttribute("hidden");
-  //   flag = true;
-  // }
+  else if (!validateEmail(email)) {
+    document.querySelector("#emailErr").removeAttribute("hidden");
+    flag = true;
+  }
   else if(password != verify_password) {
     document.querySelector("#passErr").removeAttribute("hidden");
     flag = true;
@@ -38,7 +38,7 @@ document.querySelector('#regForm').onsubmit = () => {
     flag = false;
   }
 
-  flag = false;
+  //flag = false;
 
   if (flag) {
     document.querySelector("#regErr").removeAttribute("hidden");
@@ -48,22 +48,22 @@ document.querySelector('#regForm').onsubmit = () => {
 
     let request = new XMLHttpRequest();
     request.onload = () => {
-      console.log(this.responseText);
-      const data = JSON.parse(this.responseText);
+      const data = JSON.parse(request.responseText);
+
+      //console.log(data.user);
 
       if (data.status == "success") {
-        console.log("success");
-        window.open("http://localhost:8888/Web%20tech%20works/js-validation/templates/login.html");
+        window.location.href = "http://localhost:8888/Web%20tech%20works/ajax/templates/login.html";
       }
       else {
-        console.log("error");
-        // document.querySelector("#regErr").removeAttribute("hidden");
+        document.querySelector("#regErr").innerHTML = data.body;
+        document.querySelector("#regErr").removeAttribute("hidden");
       }
     }
 
     request.open("POST", "./../registration.php", true);
-    request.send(`fname=${fname}&lname=${lname}&gender=${gender}&dob=${dob}&religion=${religion}&present=${present}&permanent=${permanent}&tel=${tel}&email=${email}&weblink=${weblink}&username=${username}&password=${password}&veverify_password=${verify_password}`);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.send(`fname=${fname}&lname=${lname}&gender=${gender}&dob=${dob}&religion=${religion}&present=${present}&permanent=${permanent}&tel=${tel}&email=${email}&weblink=${weblink}&username=${username}&password=${password}&verify_password=${verify_password}`);
   }
-
   return false;
 }

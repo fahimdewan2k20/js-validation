@@ -47,7 +47,7 @@
     }
     if(!empty($_POST['dob'])) {
       $dob = input($_POST['dob']);
-      if (strtotime($dob) >= (strtotime('now') - 86400*365*15)) {
+      if (strtotime($dob) >= (strtotime('now') - 86400*365*12)) {
         $flag = true;
       }
     }
@@ -72,7 +72,7 @@
     if(!empty($_POST['email'])) {
       $email = input($_POST['email']);
       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $emailErr = "invalid email format";
+        $flag = true;
       }
     }
     else {
@@ -83,7 +83,6 @@
     }
     if(!empty($_POST['username'])) {
       $username = input($_POST['username']);
-      echo $username;
     }
     else {
       $flag = true;
@@ -104,19 +103,27 @@
     if(!$flag) {
       $user = new User($username, $password, $fname, $lname, $gender, $dob, $religion, $email, $present, $permanent, $tel, $weblink);
 
-      if(addUser($user) === TRUE) {
-        setcookie("username", $username, time() + 86400);
-    		setcookie("password", $password, time() + 86400);
-
-        $msg["status"] = "success";
+      if (getUser($username)) {
+        $msg["status"] = "error";
+        $msg["body"] = "username already exists";
       }
-      $msg["status"] = "error";
-      $msg["body"] = "error adding user";
+      else {
+        if(addUser($user) === TRUE) {
+          setcookie("username", $username, time() + 86400);
+      		setcookie("password", $password, time() + 86400);
+
+          $msg["status"] = "success";
+        }
+        else {
+          $msg["status"] = "error";
+          $msg["body"] = "email already exists";
+        }
+      }
     }
     else {
       $msg["status"] = "error";
   	}
-    return json_encode($msg);
   }
-  return json_encode($msg);
+  echo json_encode($msg);
+  return;
 ?>

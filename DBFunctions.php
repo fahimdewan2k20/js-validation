@@ -5,7 +5,7 @@
   function addUser($user) {
     $conn = connect();
     $sql = $conn->prepare("INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $sql->bind_param("ssssissssiss", $user->username, $user->password, $user->fname, $user->lname, $user->gender, $user->dob, $user->religion, $user->present_address, $user->permanent_address, $user->phone, $user->email, $user->url);
+    $sql->bind_param("ssssisssssss", $user->username, $user->password, $user->fname, $user->lname, $user->gender, $user->dob, $user->religion, $user->present_address, $user->permanent_address, $user->phone, $user->email, $user->url);
     $sql->execute();
     if($sql->errno === 0) {
       return TRUE;

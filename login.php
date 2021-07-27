@@ -4,40 +4,45 @@
 
   $username = "";
   $password = "";
-  $error = "";
+  $msg = "";
 
-  if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    if (isset($_COOKIE["username"])) {
-      $username = $_COOKIE["username"];
-    }
-    else {
-      $username = "";
-    }
-    if (isset($_COOKIE["password"])) {
-      $password = $_COOKIE["password"];
-    }
-    else {
-      $password = "";
-    }
-  }
+  // if ($_SERVER["REQUEST_METHOD"] === "GET") {
+  //   if (isset($_COOKIE["username"])) {
+  //     $username = $_COOKIE["username"];
+  //   }
+  //   else {
+  //     $username = "";
+  //   }
+  //   if (isset($_COOKIE["password"])) {
+  //     $password = $_COOKIE["password"];
+  //   }
+  //   else {
+  //     $password = "";
+  //   }
+  // }
 
   if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
     if (!empty($_POST['username'])) {
       $username = $_POST['username'];
     }
     if (!empty($_POST['password'])) {
       $password = $_POST['password'];
     }
+
     if ($username === "" or $password === "") {
-      $error = "username or password cannot be empty";
+      $msg = "error";
     }
     else {
       if(login($username, $password) == 1) {
-        header("Location: welcome.php");
+        setcookie("username", $username, time() + 86400);
+        $msg = "success";
       }
       else {
-        $error = "username or password doesn't match";
+        $msg = "error";
       }
     }
   }
+  echo $msg;
+  return;
 ?>
