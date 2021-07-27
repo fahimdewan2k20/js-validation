@@ -5,19 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./../static/css/registration.css">
 
-    <script type="text/javascript">
-    function mySubmitFunction(e) {
-      e.preventDefault();
-      someBug();
-      return false;
-    }
-    </script>
-
     <title>Registration Form</title>
   </head>
   <body>
     <h1 style="text-align: center;">Registration Form</h1>
-    <form id="regForm" name="regForm" autocomplete="on" onsubmit="return mySubmitFunction(event)">
+    <form id="regForm" name="regForm" autocomplete="on">
       <fieldset>
         <legend>Basic information</legend>
         <label for="fname">Enter your first name<span class="required">*</span>: </label>

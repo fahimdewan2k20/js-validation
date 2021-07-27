@@ -1,10 +1,10 @@
 var fname = lname = gender = dob = religion = present = permanent = tel = email = weblink = username = password = verify_password = "";
 var flag = false;
 
-function validateEmail(email) {
-  let res = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  return res.test(email);
-}
+// function validateEmail(email) {
+//   let res = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+//   return res.test(email);
+// }
 
 document.querySelector('#regForm').onsubmit = () => {
   fname = document.forms["regForm"]["fname"].value;
@@ -24,17 +24,17 @@ document.querySelector('#regForm').onsubmit = () => {
   if (fname == "" || lname == "" || gender == "" || dob == "" || religion == "" || email == "" || username == "" || password == "" || verify_password == "") {
     flag = true;
   }
-  else if (!validateEmail(email)) {
-    document.querySelector("#emailErr").removeAttribute("hidden");
-    flag = true;
-  }
+  // else if (!validateEmail(email)) {
+  //   document.querySelector("#emailErr").removeAttribute("hidden");
+  //   flag = true;
+  // }
   else if(password != verify_password) {
     document.querySelector("#passErr").removeAttribute("hidden");
     flag = true;
   }
   else {
-    document.querySelector("#emailErr").addAttribute("hidden");
-    document.querySelector("#passErr").addAttribute("hidden");
+    document.querySelector("#emailErr").setAttribute("hidden", false);
+    document.querySelector("#passErr").setAttribute("hidden", false);
     flag = false;
   }
 
@@ -44,11 +44,12 @@ document.querySelector('#regForm').onsubmit = () => {
     document.querySelector("#regErr").removeAttribute("hidden");
   }
   else {
-    document.querySelector("#regErr").addAttribute("hidden");
+    document.querySelector("#regErr").setAttribute("hidden", false);
 
     let request = new XMLHttpRequest();
     request.onload = () => {
-      const data = JSON.parse(request.responseText);
+      console.log(this.responseText);
+      const data = JSON.parse(this.responseText);
 
       if (data.status == "success") {
         console.log("success");
